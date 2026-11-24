@@ -1,0 +1,29 @@
+name: CI
+
+# Se ejecuta en cada Pull Request hacia main. NO toca AWS: solo valida.
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lint del Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: Dockerfile
+          failure-threshold: error
+
+      - name: Build de la imagen (sin push)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          build-args: |
+            GIT_SHA=${{ github.event.pull_request.head.sha }}
