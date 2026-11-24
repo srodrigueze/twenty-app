@@ -9,4 +9,4 @@ Variables de repositorio necesarias: `AWS_ROLE_ARN`, `AWS_REGION`, `ECR_REPOSITO
 
 Para actualizar la versión de Twenty: cambiar `TWENTY_VERSION` en el Dockerfile mediante un PR.
 
-> Los workflows no se han ejecutado todavía; se validó solo la sintaxis YAML y de los pasos de shell.
+> El pipeline de despliegue ya se ejecutó con éxito de extremo a extremo (OIDC → ECR → ECS → smoke test). Este cambio sirve además para probar el flujo de CI en un Pull Request.
